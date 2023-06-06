@@ -1,0 +1,27 @@
+from selenium import webdriver
+import time
+import json
+from selenium.webdriver.common.by import By
+
+option = webdriver.ChromeOptions()
+option.add_experimental_option("detach", True)
+
+browser = webdriver.Chrome(options=option)
+
+browser.get('https://menhu.pt.ouchn.cn/site/ouchnPc/index')
+
+account = '332527199703214731'
+password = 'Ouchn@03214731'
+
+browser.find_element(By.XPATH, '//*[@id="loginName"]').send_keys(account)
+browser.find_element(By.XPATH, '//*[@id="password"]').send_keys(password)
+
+time.sleep(20)
+
+dictCookies = browser.get_cookies()  # 获取list的cookies
+jsonCookies = json.dumps(dictCookies)  # 转换成字符串保存
+
+with open('damai_cookies.txt', 'w') as f:
+    f.write(jsonCookies)
+print('cookies保存成功！')
+browser.close()
