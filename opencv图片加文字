@@ -1,0 +1,27 @@
+# This Python file uses the following encoding: utf-8
+
+#pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple
+#pip install opencv-python==3.4.3.18 opencv-python
+import cv2
+
+#从文件中读取图像
+img = cv2.imread('images/face1.jpg')
+
+#设置文件的位置、字体、颜色等参数
+pos = (10, 50)
+font = cv2.FONT_HERSHEY_SIMPLEX
+color = (255, 0, 0)
+
+#在图像中显示文本"hello, world"
+cv2.putText(img, 'hello, world', pos, font, 2, color, 2)
+
+#显示图像窗口
+cv2.imshow('Image', img)
+
+#按任意键退出
+cv2.waitKey(0)
+
+#销毁所有窗口
+cv2.destroyAllWindows()
+
+
