@@ -1,0 +1,51 @@
+from bs4 import BeautifulSoup
+import requests# 发起网络请求
+response =requests.get("http://www.weather.com.cn/weather/101220301.shtml")
+response.encoding = "utf-8"
+# 设置编码为 utf-8
+soup = BeautifulSoup(response.text, "html.parser")
+div = soup.find("div", id="7d")
+# 获取 div 标签的内容
+ul = div.find("ul")
+# 获取 ul 标签的内容
+li = ul.find_all("li")
+# 获取所有 li 标签的内容
+weatherForSevenDay = []
+# 创建列表 weatherForSevenDay
+
+for wether in li:  #遍历li标签所有内容
+    temp = []
+    date = wether.find('h1').string#获取h1标签的内容 （日期）
+    temp.append(date)
+    p = wether.find_all("p")  #获取所有的p标签
+    hign = p[1].find('span')   #获取第二个p标签的内容（最高气温）
+
+    if hign is not None:
+        hign = p[1].find('span').string
+        temp.append('最高气温是：%s' % hign)
+    else:
+        temp.append('最高气温是：网上没写')
+
+    detail = p[0].string   #获取第二个p标签的内容（天气情况）
+    temp.append(detail)
+
+    low = p[1].find('i').string        #获取第二个p标签中的i标签的内容（最低气温）
+    temp.append('最低气温是 %s ' % low)
+    print(temp)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
