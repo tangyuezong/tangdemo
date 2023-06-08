@@ -1,0 +1,19 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from fake_useragent import UserAgent
+headers = {'User-Agent': UserAgent().random} #从UA轮子里随机抽选一个用作配置，也可以自己手动设置
+print(headers) #自己手动设置，格式像这样（看输出）
+proxy = "127.0.0.1:8080" #这里是我自己本地开的一个代理服务用作测试
+ops = Options()
+ops.add_argument('User-Agent={}'.format(headers['User-Agent'])) #配置为自己设置的UA
+ops.add_argument('--proxy-server=http://%s' % proxy) #添加代理 格式为ip:port
+browser = webdriver.Chrome(options=ops)
+browser.get('http://192.168.31.130/dvwa/index.php')
+cookie = {
+    'security': 'impossible',
+    'PHPSESSID': 'n5u6pc2lul897cdca7pek6s713'
+}
+browser.delete_all_cookies()  # 删除原来的cookie
+for name, value in cookie.items():
+    browser.add_cookie({'name':name,'value':value})
+browser.get('http://192.168.31.130/dvwa/index.php')
