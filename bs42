@@ -1,0 +1,19 @@
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+from urllib.error import HTTPError, URLError
+def gettitlt(url):
+    try:
+        html = urlopen(url)
+    except (HTTPError, URLError) as e:
+        return None
+    try:
+        sobj = BeautifulSoup(html.read(), "html.parser")
+        title = sobj.title
+    except AttributeError as e:
+        return None
+    return title
+title = gettitlt("http://www.pythonscraping.com/pages/page1.html")
+if title == None:
+    print('title could not found')
+else:
+    print(title)
