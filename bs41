@@ -1,0 +1,9 @@
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+html = urlopen("http://www.pythonscraping.com/pages/page1.html")
+bsobj = BeautifulSoup(html.read())
+print(html)
+print(bsobj.h1)
+
+
+#返回的是该对象<http.client.HTTPResponse object at 0x0410D1C0>
