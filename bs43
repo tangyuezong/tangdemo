@@ -1,0 +1,12 @@
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+
+html = urlopen('https://www.pythonscraping.com/pages/warandpeace.html')
+bsobj = BeautifulSoup(html,"html.parser")
+greenlist = bsobj.findAll('span', {'class': 'green'})
+#属性参数 attributes 是用一个 Python 字典封装一个标签的若干属性和对应的属性值。
+print(greenlist)
+print("-"*88)
+for i in greenlist:
+    text = i.get_text()
+    print(text)
